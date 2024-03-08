@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 /** This is a demo program showing how to use Mecanum control with the MecanumDrive class. */
 public class Robot extends TimedRobot {
   //CAN and USB IDS
-  private static final int kFrontLeftChannel = 4;
-  private static final int kRearLeftChannel = 3;
-  private static final int kFrontRightChannel = 2;
-  private static final int kRearRightChannel = 1;
+  private static final int kFrontLeftChannel = 2;
+  private static final int kRearLeftChannel = 1;
+  private static final int kFrontRightChannel = 3;
+  private static final int kRearRightChannel = 4;
   private static final int leadDeviceID = 6;
-  private static final int followDeviceID = 5;
+ 
   //pwm
   private static final int shooterID = 1;
   private static final int PWMSparkIntakeChannel = 0;
@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     
     // Invert the right side motors.
     // You may need to change or remove this to match your robot.
-    frontRight.setInverted(true);
+    frontLeft.setInverted(false);
     rearRight.setInverted(true);
     //arms
     m_armLeadMotor.restoreFactoryDefaults();
@@ -92,7 +92,7 @@ SmartDashboard.putNumber("LimelightArea", area);
 
     // Use the joystick Y axis for forward movement, X axis for lateral
     // movement, and Z axis for rotation.
-    m_robotDrive.driveCartesian(-m_stick1.getLeftY(), -m_stick1.getLeftX(), -m_stick1.getRightX());
+    m_robotDrive.driveCartesian(m_stick1.getLeftY(), -m_stick1.getLeftX(), m_stick1.getRightX());
     //should drive two arm motors together?
     m_armLeadMotor.set(m_stick2.getLeftY());
     //if for intake in and out
